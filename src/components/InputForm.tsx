@@ -4,6 +4,12 @@ interface InputFormProps {
   onSubmit: (buyDate: string, amount: number, currency: 'USD' | 'JPY', sellType: 'today' | 'future', futureDate?: string) => void;
 }
 
+const PRESET_DATES = [
+  { label: '🍕 Pizza Day (May 22, 2010)', value: '2010-05-22' },
+  { label: '😱 COVID Crash (Mar 12, 2020)', value: '2020-03-12' },
+  { label: '🚀 All-Time High (Nov 10, 2021)', value: '2021-11-10' },
+];
+
 const InputForm: React.FC<InputFormProps> = ({ onSubmit }) => {
   const [buyDate, setBuyDate] = useState('');
   const [amount, setAmount] = useState(''); // formatted string for input
@@ -44,6 +50,20 @@ const InputForm: React.FC<InputFormProps> = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 4 }}>
+        {PRESET_DATES.map(preset => (
+          <button
+            type="button"
+            key={preset.value}
+            style={{
+              background: '#23262f', color: '#ffb800', border: 'none', borderRadius: 8, padding: '6px 12px', fontWeight: 600, cursor: 'pointer', fontSize: 13, marginBottom: 2, boxShadow: '0 1px 4px rgba(0,0,0,0.08)'
+            }}
+            onClick={() => setBuyDate(preset.value)}
+          >
+            {preset.label}
+          </button>
+        ))}
+      </div>
       <label>
         Buy Date (Past):
         <input

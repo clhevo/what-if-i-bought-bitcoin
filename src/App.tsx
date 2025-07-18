@@ -75,23 +75,67 @@ function App() {
       {loading && <p style={{ marginTop: 24 }}>Calculating...</p>}
       {error && <p style={{ color: '#ff7675', marginTop: 24 }}>{error}</p>}
       {result && (
-        <div style={{ marginTop: 32, background: '#181a20', borderRadius: 12, padding: 24, textAlign: 'center', color: '#ffe082', boxShadow: '0 2px 8px rgba(0,0,0,0.10)' }}>
-          {result.isPrediction && (
-            <div style={{ color: '#ffb800', fontWeight: 600, marginBottom: 10, fontSize: 15 }}>
-              <span role="img" aria-label="crystal ball">🔮</span> This result uses a prediction for the future BTC price.
-            </div>
-          )}
-          <div style={{ fontSize: 18, marginBottom: 10 }}>
+        <div
+          style={{
+            marginTop: 40,
+            background: '#181a20',
+            borderRadius: 18,
+            padding: 32,
+            textAlign: 'center',
+            color: '#ffe082',
+            boxShadow: '0 4px 24px rgba(0,0,0,0.13)',
+            position: 'relative',
+            overflow: 'hidden',
+            animation: 'pop-in 0.7s cubic-bezier(.68,-0.55,.27,1.55)'
+          }}
+        >
+          <style>{`
+            @keyframes pop-in {
+              0% { transform: scale(0.8); opacity: 0; }
+              80% { transform: scale(1.05); opacity: 1; }
+              100% { transform: scale(1); opacity: 1; }
+            }
+            .gradient-text {
+              background: linear-gradient(90deg, #ffb800 20%, #ff9900 80%);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              text-fill-color: transparent;
+            }
+          `}</style>
+          <div style={{ fontSize: 44, fontWeight: 800, marginBottom: 10, lineHeight: 1.1 }} className="gradient-text">
+            🎉 {result.isPrediction ? 'Estimated Value' : 'Your Investment'} 🎉
+          </div>
+          <div style={{ fontSize: 32, fontWeight: 700, margin: '18px 0 10px 0', letterSpacing: 1 }} className="gradient-text">
+            {formatCurrency(result.valueToday, result.currency)}
+          </div>
+          <div style={{ fontSize: 20, marginBottom: 18, color: '#fff3e0', fontWeight: 500 }}>
+            {result.isPrediction ? `on ${result.sellDate}` : 'today'}
+          </div>
+          <div style={{ fontSize: 18, marginBottom: 8 }}>
             You could have bought <b>{result.btcAmount.toFixed(6)} BTC</b>
           </div>
           <div style={{ fontSize: 16, marginBottom: 8 }}>
-            That would be worth <b>{formatCurrency(result.valueToday, result.currency)}</b> {result.isPrediction ? `on ${result.sellDate}` : 'today'}
-          </div>
-          <div style={{ fontSize: 15, marginBottom: 8 }}>
             Buy price: <b>{formatCurrency(result.buyPrice, result.currency)}</b> &rarr; {result.isPrediction ? `Predicted (${result.sellDate}):` : 'Now:'} <b>{formatCurrency(result.currentPrice, result.currency)}</b>
           </div>
-          <div style={{ fontSize: 16, marginTop: 12 }}>
-            ROI: <b style={{ color: result.roiAbsolute >= 0 ? '#00e676' : '#ff7675' }}>{result.roiPercent.toFixed(2)}%</b> (<b style={{ color: result.roiAbsolute >= 0 ? '#00e676' : '#ff7675' }}>{result.roiAbsolute >= 0 ? '+' : ''}{formatCurrency(result.roiAbsolute, result.currency)}</b>)
+          <div style={{ fontSize: 22, marginTop: 18, fontWeight: 700 }}>
+            <span style={{ color: result.roiAbsolute >= 0 ? '#00e676' : '#ff7675', fontSize: 28 }}>
+              {result.roiAbsolute >= 0 ? '▲' : '▼'} {formatCurrency(result.roiAbsolute, result.currency)}
+            </span>
+            <span style={{ color: result.roiAbsolute >= 0 ? '#00e676' : '#ff7675', fontSize: 22, marginLeft: 12 }}>
+              ({result.roiPercent.toFixed(2)}%)
+            </span>
+          </div>
+          {result.isPrediction && (
+            <div style={{ color: '#ffb800', fontWeight: 600, marginTop: 18, fontSize: 16 }}>
+              <span role="img" aria-label="crystal ball">🔮</span> This result uses a prediction for the future BTC price.
+            </div>
+          )}
+          <div style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
+            <span style={{ position: 'absolute', left: '10%', top: '10%', fontSize: 32, opacity: 0.18 }}>🎉</span>
+            <span style={{ position: 'absolute', right: '12%', top: '18%', fontSize: 28, opacity: 0.13 }}>🪙</span>
+            <span style={{ position: 'absolute', left: '20%', bottom: '12%', fontSize: 28, opacity: 0.13 }}>🟧</span>
+            <span style={{ position: 'absolute', right: '18%', bottom: '10%', fontSize: 36, opacity: 0.13 }}>🎉</span>
           </div>
         </div>
       )}
@@ -100,3 +144,4 @@ function App() {
 }
 
 export default App
+
