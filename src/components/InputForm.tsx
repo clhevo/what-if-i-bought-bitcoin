@@ -6,8 +6,8 @@ interface InputFormProps {
 
 const PRESET_DATES = [
   { label: '🍕 Pizza Day (May 22, 2010)', value: '2010-05-22' },
+  { label: '💯 $100 Milestone (Apr 2, 2013)', value: '2013-04-02' },
   { label: '😱 COVID Crash (Mar 12, 2020)', value: '2020-03-12' },
-  { label: '🚀 All-Time High (Nov 10, 2021)', value: '2021-11-10' },
 ];
 
 const InputForm: React.FC<InputFormProps> = ({ onSubmit }) => {
