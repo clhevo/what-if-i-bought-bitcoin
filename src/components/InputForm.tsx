@@ -56,7 +56,16 @@ const InputForm: React.FC<InputFormProps> = ({ onSubmit }) => {
             type="button"
             key={preset.value}
             style={{
-              background: '#23262f', color: '#ffb800', border: 'none', borderRadius: 8, padding: '6px 12px', fontWeight: 600, cursor: 'pointer', fontSize: 13, marginBottom: 2, boxShadow: '0 1px 4px rgba(0,0,0,0.08)'
+              background: 'linear-gradient(90deg, #1de9b6 0%, #43e97b 100%)',
+              color: '#1a2b1a',
+              border: 'none',
+              borderRadius: 8,
+              padding: '6px 12px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              fontSize: 13,
+              marginBottom: 2,
+              boxShadow: '0 1px 4px rgba(34, 197, 94, 0.13)'
             }}
             onClick={() => setBuyDate(preset.value)}
           >
